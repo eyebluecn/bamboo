@@ -1,0 +1,21 @@
+### verify the mysql authentication
+POST http://localhost:6020/api/install/verify
+Content-Type: application/x-www-form-urlencoded
+
+mysqlPort=3306&mysqlHost=bamboo.eyeblue.cn&mysqlSchema=bamboo_dev&mysqlUsername=bamboo&mysqlPassword=Bamboo_123
+
+### create tables
+POST http://localhost:6020/api/install/create/table
+Content-Type: application/x-www-form-urlencoded
+
+mysqlPort=3306&mysqlHost=bamboo.eyeblue.cn&mysqlSchema=bamboo_dev&mysqlUsername=bamboo&mysqlPassword=Bamboo_123
+
+### create admin account
+POST http://localhost:6020/api/install/create/admin
+Content-Type: application/x-www-form-urlencoded
+
+mysqlPort=3306&mysqlHost=bamboo.eyeblue.cn&mysqlSchema=bamboo_dev&mysqlUsername=bamboo&mysqlPassword=Bamboo_123&adminUsername=bamboo&adminPassword=Bamboo_123
+
+###
+
+

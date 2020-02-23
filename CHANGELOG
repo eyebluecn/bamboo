@@ -1,0 +1,56 @@
+# 蓝眼博客 (待完善)
+
+## 注意事项
+每次版本升级时需要修改以下内容。
+
+1. build/pack/build.bat
+    VERSION_NAME=bamboo-x.x.x
+
+2. build/pack/build.sh
+    VERSION_NAME=bamboo-x.x.x
+
+3. core/config.go
+    VERSION = x.x.x
+
+4. bamboo-front 修改 vuex/index.js
+    versionName: 'x.x.x'
+
+5. readme.md 修改 eyeblue/bamboo:x.x.x
+    eyeblue/bamboo:x.x.x
+
+
+## 新版本发布流程
+1.docker版本的发布。[参考](https://blog.eyeblue.cn/home/article/510f9316-9ca1-40fe-b1b3-5285505a527d)
+
+```
+cd bamboo根目录
+# 停止旧版本，并删除旧版本
+docker container stop xxx
+docker container prune
+# 构建新版本 (最后的.不能少)
+docker build -t eyeblue/bamboo:x.x.x .
+# 本地测试
+docker run --name dockermysql -p 13306:3306 -e MYSQL_ROOT_PASSWORD=123456 -e MYSQL_DATABASE=bamboo -e MYSQL_USER=bamboo -e MYSQL_PASSWORD=bamboo123 -v ~/data/dockermysql:/var/lib/mysql -d mysql:5.7
+docker run --name bamboo -p 6020:6020 --link dockermysql:mysql -v ~/data/dockermatter:/data/matter -d eyeblue/bamboo:x.x.x
+# 没问题后，推送到远程
+docker push eyeblue/bamboo:x.x.x
+```
+
+2.linux版本的发布。
+
+a. 执行`src/bamboo/build/pack/build.sh`脚本
+b. 上传 bamboo-x.x.x.linux-amd64.tar.gz 到蓝眼云盘
+c. 在github上发布新版本。
+
+3.windows版本发布
+
+a. 执行`src/bamboo/build/pack/build.bat`脚本
+b. 上传 bamboo-x.x.x.windows-x86_64.zip 到蓝眼云盘
+c. 在github上发布新版本。
+
+3.更新bamboo-doc 下载内容
+
+
+2020-02-23
+bamboo-1.0.0
+创建蓝眼博客第一个版本
