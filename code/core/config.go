@@ -9,7 +9,7 @@ const (
 
 	DEFAULT_SERVER_PORT = 6020
 
-	//db table's prefix. bamboo10_ means current version is bamboo:3.0.x
+	//db table's prefix. bamboo10_ means current version is bamboo:1.0.x
 	TABLE_PREFIX = "bamboo10_"
 
 	VERSION = "1.0.0"

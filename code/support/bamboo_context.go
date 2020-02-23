@@ -118,6 +118,11 @@ func (this *BambooContext) registerBean(bean core.Bean) {
 
 func (this *BambooContext) registerBeans() {
 
+	//article
+	this.registerBean(new(rest.ArticleController))
+	this.registerBean(new(rest.ArticleDao))
+	this.registerBean(new(rest.ArticleService))
+
 	//install
 	this.registerBean(new(rest.InstallController))
 

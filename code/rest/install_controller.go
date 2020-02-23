@@ -24,7 +24,10 @@ type InstallController struct {
 func (this *InstallController) Init() {
 	this.BaseController.Init()
 
+	//register all entities which need to create table.
 	this.tableNames = []IBase{
+		&Article{},
+		&Footprint{},
 		&Preference{},
 		&Session{},
 		&User{},

@@ -1,0 +1,10 @@
+### create an article
+POST http://localhost:6020/api/user/login
+Content-Type: application/x-www-form-urlencoded
+
+username=bamboo&password=Bamboo_123
+
+###
+
+
+
