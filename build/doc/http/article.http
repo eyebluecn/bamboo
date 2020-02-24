@@ -2,13 +2,13 @@
 POST http://localhost:6020/api/article/create
 Content-Type: application/x-www-form-urlencoded
 
-_username=bamboo&_password=Bamboo_123&title=articleA&path=aaa&author=lishuang
+_username=bamboo&_password=Bamboo_123&title=articleT&path=aaa&author=lishuang
 
 ### delete an article
 POST http://localhost:6020/api/article/delete
 Content-Type: application/x-www-form-urlencoded
 
-_username=bamboo&_password=Bamboo_123&uuid=3d188e8e-fad9-4f97-7873-59b917fc2906
+_username=bamboo&_password=Bamboo_123&uuid=cefb1ea8-f4f2-4917-43fb-e424f736b076
 
 ###
 
