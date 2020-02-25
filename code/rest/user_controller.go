@@ -42,11 +42,12 @@ func (this *UserController) RegisterRoutes() map[string]func(writer http.Respons
 	routeMap["/api/user/register"] = this.Wrap(this.Register, USER_ROLE_GUEST)
 	routeMap["/api/user/create"] = this.Wrap(this.Create, USER_ROLE_ADMINISTRATOR)
 	routeMap["/api/user/edit"] = this.Wrap(this.Edit, USER_ROLE_USER)
+	routeMap["/api/user/info"] = this.Wrap(this.Info, USER_ROLE_USER)
 	routeMap["/api/user/detail"] = this.Wrap(this.Detail, USER_ROLE_USER)
 	routeMap["/api/user/logout"] = this.Wrap(this.Logout, USER_ROLE_GUEST)
 	routeMap["/api/user/change/password"] = this.Wrap(this.ChangePassword, USER_ROLE_USER)
 	routeMap["/api/user/reset/password"] = this.Wrap(this.ResetPassword, USER_ROLE_ADMINISTRATOR)
-	routeMap["/api/user/page"] = this.Wrap(this.Page, USER_ROLE_ADMINISTRATOR)
+	routeMap["/api/user/list"] = this.Wrap(this.List, USER_ROLE_ADMINISTRATOR)
 	routeMap["/api/user/toggle/status"] = this.Wrap(this.ToggleStatus, USER_ROLE_ADMINISTRATOR)
 	routeMap["/api/user/transfiguration"] = this.Wrap(this.Transfiguration, USER_ROLE_ADMINISTRATOR)
 
@@ -229,6 +230,14 @@ func (this *UserController) Edit(writer http.ResponseWriter, request *http.Reque
 	return this.Success(currentUser)
 }
 
+//Get the info of current login user.
+func (this *UserController) Info(writer http.ResponseWriter, request *http.Request) *result.WebResult {
+
+	user := this.checkUser(request)
+
+	return this.Success(user)
+
+}
 func (this *UserController) Detail(writer http.ResponseWriter, request *http.Request) *result.WebResult {
 
 	uuid := request.FormValue("uuid")
@@ -244,7 +253,7 @@ func (this *UserController) Logout(writer http.ResponseWriter, request *http.Req
 	//try to find from SessionCache.
 	sessionId := util.GetSessionUuidFromRequest(request, core.COOKIE_AUTH_KEY)
 	if sessionId == "" {
-		return nil
+		return this.Success("OK")
 	}
 
 	user := this.findUser(request)
@@ -273,7 +282,7 @@ func (this *UserController) Logout(writer http.ResponseWriter, request *http.Req
 	return this.Success("OK")
 }
 
-func (this *UserController) Page(writer http.ResponseWriter, request *http.Request) *result.WebResult {
+func (this *UserController) List(writer http.ResponseWriter, request *http.Request) *result.WebResult {
 
 	pageStr := request.FormValue("page")
 	pageSizeStr := request.FormValue("pageSize")

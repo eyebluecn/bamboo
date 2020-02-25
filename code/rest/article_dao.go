@@ -37,12 +37,24 @@ func (this *ArticleDao) CheckByUuid(uuid string) *Article {
 	return entity
 }
 
-func (this *ArticleDao) Page(page int, pageSize int, userUuid string, sortArray []builder.OrderPair) *Pager {
+func (this *ArticleDao) Page(page int, pageSize int, userUuid string, title string, path string, author string, sortArray []builder.OrderPair) *Pager {
 
 	var wp = &builder.WherePair{}
 
 	if userUuid != "" {
 		wp = wp.And(&builder.WherePair{Query: "user_uuid = ?", Args: []interface{}{userUuid}})
+	}
+
+	if title != "" {
+		wp = wp.And(&builder.WherePair{Query: "title LIKE ?", Args: []interface{}{"%" + title + "%"}})
+	}
+
+	if path != "" {
+		wp = wp.And(&builder.WherePair{Query: "path LIKE ?", Args: []interface{}{"%" + path + "%"}})
+	}
+
+	if author != "" {
+		wp = wp.And(&builder.WherePair{Query: "author LIKE ?", Args: []interface{}{"%" + author + "%"}})
 	}
 
 	var conditionDB *gorm.DB
