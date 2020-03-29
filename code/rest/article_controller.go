@@ -52,6 +52,7 @@ func (this *ArticleController) Create(writer http.ResponseWriter, request *http.
 	title := request.FormValue("title")
 	path := request.FormValue("path")
 	author := request.FormValue("author")
+	html := request.FormValue("html")
 
 	user := this.checkUser(request)
 	article := &Article{
@@ -59,6 +60,7 @@ func (this *ArticleController) Create(writer http.ResponseWriter, request *http.
 		Title:    title,
 		Path:     path,
 		Author:   author,
+		Html:	  html,
 	}
 
 	article = this.articleDao.Create(article)
@@ -73,12 +75,14 @@ func (this *ArticleController) Edit(writer http.ResponseWriter, request *http.Re
 	title := request.FormValue("title")
 	path := request.FormValue("path")
 	author := request.FormValue("author")
+	html := request.FormValue("html")
 
 	article := this.articleDao.CheckByUuid(uuid)
 
 	article.Title = title
 	article.Path = path
 	article.Author = author
+	article.Html = html
 
 	article = this.articleDao.Save(article)
 
